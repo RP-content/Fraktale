@@ -2,19 +2,28 @@ public class Calculator extends Thread{
     private double X,Y;
     private int iterations,px,py;
     private Main m;
-    Calculator(double X,double Y,int px,int py,int iterations,Main m){
+    Calculator(double X,int px,int iterations,Main m){
         this.iterations=iterations;
         this.X=X;
-        this.Y=Y;
+
         this.m=m;
         this.px=px;
-        this.py=py;
+
     }
 
     @Override
     public void run() {
-        double d =mandelbrot(new Complex(X,Y));
-        m.cache[px][py]=d;
+        int aa=m.a;
+        double shiftY =m.shiftY;
+        double scaleY =m.scaleY;
+        for (int y=0;y<aa;y++){
+            py=y;
+            Y= ((y-aa/2+shiftY)*scaleY);
+            double d =mandelbrot(new Complex(X,Y));
+            m.cache[px][py]=d;
+        }
+
+
 
     }
 

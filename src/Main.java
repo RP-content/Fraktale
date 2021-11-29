@@ -91,11 +91,16 @@ public class Main extends JFrame {
         new Main();
     }
 
-
+    public int a =1000;
     public void draw(){
 
-        int a=1000;
+
         for (int x=0;x<a*1.4;x++){
+            double xx= ((x-a/2+shiftX)*scaleX);
+            Calculator c=new Calculator(xx,x,iterations,this);
+            c.run();
+
+            /*
             for (int y=0;y<a;y++){
                 double xx= ((x-a/2+shiftX)*scaleX);
                 double yy= ((y-a/2+shiftY)*scaleY);
@@ -105,8 +110,9 @@ public class Main extends JFrame {
 
                 //System.out.println("X: "+xx+" Y: "+yy+" d: "+d);
 
-            }
+            }*/
         }
+        repaint();
     }
 
     public double mandelbrot(Complex c){
@@ -138,7 +144,7 @@ public class Main extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for(int x=0;x<1500;x++){
+        for(int x=0;x<1400;x++){
             for(int y=0;y<1000;y++){
                 double d=cache[x][y];
                 if (d>0){
