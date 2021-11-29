@@ -15,10 +15,12 @@ public class Main extends JFrame {
     public double mouseYpoint=0;
     public boolean b=false;
     public int iterations =200;
+    public volatile double[][] cache=new double[1400][1000];
     Main(){
         Container cp=this.getContentPane();
         Design.applyDesign(cp,this);
         cp.setSize(1500,1000);
+        cp.setBounds(0,0,1500,1000);
         draw();
         this.addKeyListener(new KeyListener() {
             @Override
@@ -88,23 +90,21 @@ public class Main extends JFrame {
     public static void main(String[] args) {
         new Main();
     }
+
+
     public void draw(){
-        Graphics g =this.getGraphics();
-        int a=900;
+
+        int a=1000;
         for (int x=0;x<a*1.4;x++){
             for (int y=0;y<a;y++){
                 double xx= ((x-a/2+shiftX)*scaleX);
                 double yy= ((y-a/2+shiftY)*scaleY);
+                Calculator c=new Calculator(xx,yy,x,y,iterations,this);
+                c.run();
 
-                double d =mandelbrot(new Complex(xx,yy));
+
                 //System.out.println("X: "+xx+" Y: "+yy+" d: "+d);
-                if (d>4){
-                    g.setColor(Color.black);
 
-                }else {
-                    g.setColor(Color.white);
-                }
-                g.drawRect(x+10,y+10,1,1);
             }
         }
     }
@@ -134,4 +134,23 @@ public class Main extends JFrame {
         }
 
     }*/
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        for(int x=0;x<1500;x++){
+            for(int y=0;y<1000;y++){
+                double d=cache[x][y];
+                if (d>0){
+                    g.setColor(Color.black);
+
+                }else {
+                    g.setColor(Color.white);
+                }
+                g.drawRect(x+10,y+10,1,1);
+
+            }
+        }
+
+    }
 }
