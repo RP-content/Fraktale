@@ -90,8 +90,8 @@ public class Main extends JFrame {
     }
     public void draw(){
         Graphics g =this.getGraphics();
-        int a=500;
-        for (int x=0;x<a;x++){
+        int a=900;
+        for (int x=0;x<a*1.4;x++){
             for (int y=0;y<a;y++){
                 double xx= ((x-a/2+shiftX)*scaleX);
                 double yy= ((y-a/2+shiftY)*scaleY);
